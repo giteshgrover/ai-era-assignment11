@@ -1,5 +1,6 @@
 import regex as re
 from tokenizer import sanskrit_token_preprocessor, bpeAlgo, create_vocab, save_paired_tokens_vocab, save_vocab, encode, decode
+from tqdm import tqdm
 
 class Config:
     vocab_size = 5000
@@ -9,6 +10,7 @@ class Config:
 
 
 def train_and_create_vocab():
+    print('Reading file...')
     with open('static/sanskrit.txt', 'r', encoding='utf-8') as f: 
         text = f.read()
 #     text = """चीराण्यपास्याज्जनकस्य कन्या नेयं प्रतिज्ञा मम दत्तपूर्वा। यथासुखं गच्छतु राजपुत्री वनं समग्रा सह सर्वरत्नैः॥
@@ -19,12 +21,14 @@ def train_and_create_vocab():
     origTokensLen = len(list(text.encode('utf-8')))
     print(f'UTF-8 tokens length (without considering regex) {origTokensLen}')
     
+    print('Preprocessing tokens...')
     tokens = sanskrit_token_preprocessor(text) # Split texts to list of strings as per the preProcess rules (regex)
     # print(tokens)
     tokens = [list(tok.encode('utf-8')) for tok in tokens] # Tokens is a list of list of utf-8 strings
     print(f'UTF-8 Split tokens length (due to regex) {len(tokens)}')
     # print(tokens)
 
+    print('Training BPE...')
     # BPE algo on list of list of utf-8 tokens
     paired_tokens_vocab, encodedTokens = bpeAlgo(tokens, Config.vocab_size - 256, 256)
     # paired_tokens_vocab is what was called 'merges' in the class

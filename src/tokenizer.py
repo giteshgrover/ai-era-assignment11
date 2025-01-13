@@ -1,4 +1,5 @@
 import regex as re
+from tqdm import tqdm
 
 # U+090x
 # ऀ ँ ऄ अ आ इ ई उ ऊ ऋ ऌ ऍ ऎ ए
@@ -41,7 +42,7 @@ def bpeAlgo(tokensList, total_runs, newTokenStartValue):
     newTokensList = list(tokensList) # copy list to keep original unchanged
     # newTokensList - list of list of tokens
     
-    for i in range(0, total_runs):
+    for i in tqdm(range(0, total_runs), desc="Learning BPE"):
         pair_stats = {}
         for tokens in newTokensList:
              pair_stats = get_pair_stats(tokens, pair_stats)
