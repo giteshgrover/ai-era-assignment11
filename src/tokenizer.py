@@ -121,3 +121,5 @@ def encode(text, paired_tokens_vocab):
         newTok = paired_tokens_vocab[pair]
         # print(f"Replacing {pair} with {newTok}")
         tokens = merge(tokens, pair, newTok)
+    
+    return tokens

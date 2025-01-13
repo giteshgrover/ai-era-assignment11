@@ -1,6 +1,7 @@
 import regex as re
 from tokenizer import sanskrit_token_preprocessor, bpeAlgo, create_vocab, save_paired_tokens_vocab, save_vocab, encode, decode
 from tqdm import tqdm
+import time
 
 class Config:
     vocab_size = 5000
@@ -29,10 +30,13 @@ def train_and_create_vocab():
     # print(tokens)
 
     print('Training BPE...')
+    start_time = time.time()
     # BPE algo on list of list of utf-8 tokens
     paired_tokens_vocab, encodedTokens = bpeAlgo(tokens, Config.vocab_size - 256, 256)
     # paired_tokens_vocab is what was called 'merges' in the class
     vocab = create_vocab(paired_tokens_vocab)
+    training_time = time.time() - start_time
+    print(f"Tokenizer training completed in {training_time:.2f} seconds")
     # print(paired_tokens_vocab)
     # print(vocab)
     print(f"Vocab size: {len(vocab)}")
@@ -41,10 +45,12 @@ def train_and_create_vocab():
     print(f"Original tokens length {origTokensLen}, while updated tokens length {len(encodedTokens)}")
     print(f"Compression Ratio {origTokensLen/len(encodedTokens):.2f}")
 
+    print('Saving Tokenizer Vocab in files...')
     save_paired_tokens_vocab(Config.pair_token_file, paired_tokens_vocab)
     save_vocab( Config.vocab_file, vocab)
 
     ## Test
+    print('Testing the validity of tokenizer...')
     text = """चीराण्यपास्याज्जनकस्य कन्या नेयं प्रतिज्ञा मम दत्तपूर्वा। यथासुखं गच्छतु राजपुत्री वनं समग्रा सह सर्वरत्नैः॥
 अजीवनाहेण मया नृशंसा कृता प्रतिज्ञा नियमेन तावत्। त्वया हि बाल्यात् प्रतिपन्नमेतत् तन्मा 123 4 5दहेद् वेणुमिवात्मपुष्पम्॥ I am going
 """
