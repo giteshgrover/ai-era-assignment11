@@ -1,5 +1,5 @@
 import pytest
-from src.tokenizer import sanskrit_token_preprocessor, bpeAlgo, create_vocab, encode, decode
+from tokenizer import sanskrit_token_preprocessor, bpeAlgo, create_vocab, encode, decode
 
 @pytest.fixture
 def sample_text():
