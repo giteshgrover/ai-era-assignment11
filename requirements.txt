@@ -2,3 +2,4 @@ gradio
 regex
 tqdm
 huggingface-hub
+pytest
