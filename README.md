@@ -94,5 +94,9 @@ True
 
 After Hugging Space implementation:
 ```
+Learning BPE: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 4744/4744 [03:25<00:00, 23.07it/s]
+
+(Huggingface app output)
+Training completed! Vocabulary size: 5000 and Compression Ratio: 9.42
 
 ```
