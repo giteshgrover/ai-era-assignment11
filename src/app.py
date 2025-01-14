@@ -31,8 +31,8 @@ class TokenizerModel:
              # Display the error message in your UI
             return f"Error during training: {str(e)}"
         
-        save_paired_tokens_vocab("data/paired_tokens.bpe", self.paired_tokens_vocab)
-        save_vocab( "data/vocab.bpe", self.vocab)
+        # save_paired_tokens_vocab("data/paired_tokens.bpe", self.paired_tokens_vocab)
+        # save_vocab( "data/vocab.bpe", self.vocab)
 
         # Calculate compression ratio
         compression_ratio = orig_tokens_len / len(encoded_tokens)
@@ -41,7 +41,18 @@ class TokenizerModel:
     
     def tokenize(self, text):
         if self.paired_tokens_vocab is None:
-            return "Please train the tokenizer first!"
+            # try:
+            #     with open("data/paired_tokens.bpe", "r") as f:
+            #         self.paired_tokens_vocab = eval(f.read())
+            #     with open("data/vocab.bpe", "r") as f:
+            #         self.vocab = eval(f.read())
+            # except FileNotFoundError as fe:
+            #     return {"Error":f"Please train the tokenizer first or ensure vocabulary files exist! {fe}"}
+            # except SyntaxError as se:
+            #     return {"Error":f"Please train the tokenizer first or ensure vocabulary files exist! {se}"}
+            # except Exception as e:
+            #     return {"Error": str(e)}
+            return {"Error": "Please train it first to create vocab. Training smaples can be found in the data dir"}
         
         encoded = encode(text, self.paired_tokens_vocab)
         decoded = decode(encoded, self.vocab)
