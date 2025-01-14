@@ -48,6 +48,10 @@ def bpeAlgo(tokensList, total_runs, newTokenStartValue):
              pair_stats = get_pair_stats(tokens, pair_stats)
        
         # print(pair_stats)
+        if not pair_stats:
+            print(f"Not enought unique pairs to run BPE's {total_runs} runs")
+            raise ValueError(f"Not enough pairs to create a vocab of size {total_runs+256}")
+
         top_pair = max(pair_stats, key=pair_stats.get)
         newTokenVal = len(paired_tokens_vocab)+newTokenStartValue
         # Replace tokens
@@ -56,7 +60,7 @@ def bpeAlgo(tokensList, total_runs, newTokenStartValue):
         # Add the new token to paired_tokens_vocab
         paired_tokens_vocab[top_pair] = newTokenVal
 
-    return paired_tokens_vocab, [tok for tok in tokens for tokens in newTokensList]
+    return paired_tokens_vocab, [tok for toks in newTokensList for tok in toks]
 
 # Get dictonary with key as token pairs and value as number of occurence
 def get_pair_stats(toks, pair_stats): 

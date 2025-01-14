@@ -1,3 +1,4 @@
+gradio
 regex
 tqdm
-pytest>=6.0.0
+huggingface-hub
