@@ -54,22 +54,22 @@ git push -u origin main
 
 # Steps to Run Locally
 1. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
 2. Install the requirements and the Hugging Face CLI:
-   ```bash
-    pip install -r requirements.txt
-    pip install --upgrade huggingface-hub
-   ```
+```bash
+pip install -r requirements.txt
+pip install --upgrade huggingface-hub
+```
 
 4. To run the app:
-   ```bash
-   python src/app.py
-   ```
-   The interface will be available at `http://localhost:7860` by default.
+```bash
+python src/app.py
+```
+    The interface will be available at `http://localhost:7860` by default.
 
 # Logs
 
